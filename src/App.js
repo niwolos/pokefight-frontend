@@ -18,7 +18,7 @@ function App() {
       })
       */
     axios
-      .get("/api/pokemon")
+      .get("http://localhost:3001/pokemon")
       .then((res) => {
         console.log({ pokemon_data: res.data });
         setPokemonData(res.data);

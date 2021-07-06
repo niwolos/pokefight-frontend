@@ -10,7 +10,7 @@ export default function PokemonDetails({ pokemonList }) {
   useEffect(() => {
     if (!info) {
       axios
-        .get(`/api/pokemon/${id}`)
+        .get(`http://localhost:3001/pokemon/${id}`)
         .then((res) => {
           console.log({ pokemon_data: res.data });
           setPokemonById(res.data);
@@ -20,7 +20,7 @@ export default function PokemonDetails({ pokemonList }) {
         });
     } else {
       axios
-        .get(`/api/pokemon/${id}/${info}`)
+        .get(`http://localhost:3001/pokemon/${id}/${info}`)
         .then((res) => {
           console.log({ pokemon_data: res.data });
           setPokemonById(res.data);
