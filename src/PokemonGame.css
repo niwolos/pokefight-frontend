@@ -1,0 +1,54 @@
+.totalContainer{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;   
+}
+
+.leftFirstSubContainer{
+    display: flex;
+    justify-content: center;
+    flex-flow: column;
+}
+
+.leftSecondSubContainer{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.leftThirdSubContainer{
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-end;
+}
+
+.firstColumn{
+    background-color: red;
+    
+}
+
+.secondColumn{
+    background-color: yellow;
+    
+}
+
+.thirdColumn{
+    background-color: blueviolet;
+    
+}
+
+.saveButton{
+
+}
+
+.winnerLabel{
+
+}
+
+.idArea{
+    width: 10px;
+}
+
+.resultsOne{
+    width: 10%;
+    
+}
