@@ -21,6 +21,23 @@
     justify-content: flex-end;
 }
 
+.rightFirstSubContainer{
+    display: flex;
+    justify-content: center;
+    flex-flow: column;
+}
+
+.rightSecondSubContainer{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.rightThirdSubContainer{
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-end;
+}
+
 .firstColumn{
     background-color: red;
     
@@ -37,7 +54,13 @@
 }
 
 .saveButton{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
 
+.randomButton{
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .winnerLabel{
@@ -54,3 +77,23 @@
 }
 
 textarea { resize: none; }
+
+textarea:disabled {
+    background-color:lightcyan;
+}
+
+.identityInput {
+    disabled: false
+}
+
+.gameplayUIValue {
+    disabled: true
+}
+
+.turnLabel:disabled{
+    background-color: lightcyan;
+    width:auto;
+    max-width: 20px;
+    max-height: 15px;
+}
+
