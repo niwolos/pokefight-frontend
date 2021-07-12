@@ -37,7 +37,7 @@ class PokemonGame extends React.Component {
                </div>
             </div>
             <div className="thirdColumn">
-            <button className="saveButton">Save Match</button><br/>
+            <button className="randomButton">Randomize</button><br/>
                 <label className="winnerLabel">Winner</label>
                 <div className="leftFirstSubContainer">
                     <div className="leftSecondSubContainer">
