@@ -5,11 +5,12 @@ import "./PokemonGame.css";
 function PokemonGame() {
   const [pokemonAIdentity, setPokemonAIdentity] = useState({ id: 0 });
   const [pokemonBIdentity, setPokemonBIdentity] = useState({ id: 1 });
+  const [pokemonACurrentHP, setPokemonACurrentHP] = useState();
   const [pokemonAStats, setPokemonAStats] = useState();
+  const [pokemonBCurrentHP, setPokemonBCurrentHP] = useState();
   const [pokemonBStats, setPokemonBStats] = useState();
   const [currentTurn, setCurrentTurn] = useState("0");
   const [gameActive, setGameActive] = useState("false");
-  
 
   const updatePokemonAIdentity = (e) => {
     console.log(
@@ -29,6 +30,24 @@ function PokemonGame() {
       ...pokemonBIdentity,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const initPokemonAStats = (stats) => {
+    setPokemonAStats(stats);
+    setPokemonACurrentHP(stats.hp);
+  };
+
+  const initPokemonBStats = (stats) => {
+    setPokemonBStats(stats);
+    setPokemonBCurrentHP(stats.hp);
+  };
+
+  const updatePokemonAHealth = (change) => {
+    setPokemonACurrentHP(pokemonACurrentHP + change);
+  };
+
+  const updatePokemonBHealth = (change) => {
+    setPokemonBCurrentHP(pokemonBCurrentHP + change);
   };
 
   return (
