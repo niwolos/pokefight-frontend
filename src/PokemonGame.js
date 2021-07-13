@@ -150,6 +150,7 @@ function PokemonGame({ pokemonList }) {
     if (pokemonACurrentHP <= 0 || pokemonBCurrentHP <= 0) {
       return true;
     }
+
     return false;
   };
 
@@ -512,6 +513,7 @@ function PokemonGame({ pokemonList }) {
                 alt="Pokemon img not found"
               ></img>
             </div>
+
           </div>
         </div>
         <div className="secondColumn">
@@ -618,6 +620,7 @@ function PokemonGame({ pokemonList }) {
                 width="200px"
                 alt="Pokemon img not found"
               ></img>
+
             </div>
           </div>
         </div>

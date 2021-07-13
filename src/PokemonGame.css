@@ -1,24 +1,87 @@
 .totalContainer{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;   
+    justify-content: space-around;
+    background-color: rgb(205, 240, 234);
+    
+}
+
+/* the left column*/
+
+.firstColumn{
+    background-color: grey;
+    margin-top: 100px;
+    border-radius: 5%;
+    width: 300px;
+    height: 100%;
+    padding: 10px;    
+}
+
+.saveButton{
+    margin: 10px 10px 50px 10px;
+    border-radius: 15%;
+    height: 35px;
+    background-color: rgb(41, 23, 199);
+    color:#f8f7f5;   
+    font-size:10pt;  
+    font-family:arial, "lucida console", sans-serif;  
+}
+
+.winnerLabel{
+    background-color: burlywood;
+    margin-left: 70px;
+    padding: 20px;
+    border-radius: 10%;
 }
 
 .leftFirstSubContainer{
-    display: flex;
-    justify-content: center;
     flex-flow: column;
+    margin-top: 50px;
 }
 
 .leftSecondSubContainer{
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
+
 }
+
+.idArea{
+    border-radius: 10%;
+    resize: none;
+    width: 30px;
+}
+
+.inArea{
+    border-radius: 10%;
+    resize: none;
+    flex-grow: 3;
+    resize: none;
+    margin: 0px 25px 0px 20px; 
+}
+
 
 .leftThirdSubContainer{
     display: flex;
-    flex-flow: column;
-    justify-content: flex-end;
+    flex-flow: column;   
+}
+
+.resultsOne{
+    border-radius: 10%;
+    resize: none;
+    width: 100px; 
+    margin: 20px 20px 20px 170px;   
+}
+
+.resultsTwo{
+    border-radius: 10%;
+    resize: none;
+    width: 50px; 
+    margin: 20px 20px 20px 220px;   
+}
+
+.leftFighter{
+    display: flex;
+    justify-content: center;
 }
 
 .rightFirstSubContainer{
@@ -43,16 +106,34 @@
     
 }
 
+
 .secondColumn{
-    background-color: yellow;
-    
+    background-color: grey;
+    margin-top: 100px;
+    border-radius: 5%;
+    width: 300px;
+    height: 100%;
+    padding: 10px;
 }
 
+/*this is the third column*/ 
 .thirdColumn{
-    background-color: blueviolet;
-    
+    background-color: grey;
+    margin-top: 100px;
+    border-radius: 5%;
+    width: 300px;
+    height: 100%;
+    padding: 10px;
 }
 
+.randButton{
+    margin: 10px 10px 50px 200px;
+    border-radius: 15%;
+    height: 35px;
+    background-color: rgb(41, 23, 199);
+    color:#f8f7f5;   
+    font-size:10pt;  
+    font-family:arial, "lucida console", sans-serif;  
 .saveButton{
     margin-top: 20px;
     margin-bottom: 20px;
@@ -64,12 +145,67 @@
 }
 
 .winnerLabel{
+    background-color: burlywood;
+    margin-left: 70px;
+    padding: 20px;
+    border-radius: 10%;
+}
+
+.rightFirstSubContainer{
+    flex-flow: column;
+    margin-top: 50px;
+}
+
+.rightSecondSubContainer{
+    display: flex;
+    justify-content: flex-start;
 
 }
 
 .idArea{
-    width: 10px;
+    border-radius: 10%;
+    resize: none;
+    width: 30px;
 }
+
+.inArea{
+    border-radius: 10%;
+    resize: none;
+    flex-grow: 3;
+    resize: none;
+    margin: 0px 25px 0px 20px; 
+}
+
+
+.leftThirdSubContainer{
+    display: flex;
+    flex-flow: column;   
+}
+
+.resultsOneRight{
+    border-radius: 10%;
+    resize: none;
+    width: 100px; 
+    margin: 20px 170px 20px 20px;   
+}
+
+.resultsTwoRight{
+    border-radius: 10%;
+    resize: none;
+    width: 50px; 
+    margin: 20px 20px 20px 20px;   
+}
+
+.rightFighter{
+    display: flex;
+    justify-content: center;
+}
+
+img{
+    margin: 100px 0px 50px 0px;
+
+}
+
 
 .resultsOne{
     width: 10%;
