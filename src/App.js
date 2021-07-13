@@ -57,7 +57,7 @@ function App() {
         </Route>
         
           <Route exact path="/pokemon/games">
-              <PokemonGame></PokemonGame>
+              <PokemonGame pokemonList={pokemonData}></PokemonGame>
             </Route>
           <Route path="/pokemon/:id">
               <PokemonDetails pokemonList={pokemonData}></PokemonDetails>
