@@ -23,6 +23,7 @@ function PokemonGame({ pokemonList }) {
   const [winner, setWinner] = useState("");
   const [currentTurn, setCurrentTurn] = useState(0);
   const [gameWinnerId, setGameWinnerId] = useState(-1);
+  const [gameLogState, setGameLogState] = useState([]);
   let gameLog = [];
 
   useEffect(() => {
@@ -53,6 +54,8 @@ function PokemonGame({ pokemonList }) {
     setGameActive(true);
     setWinner("");
     setCurrentTurn(0);
+    setGameLogState([]);
+    gameLog=[];
 
     //2.
     console.log({ id_1: inputId1.current.value });
@@ -159,16 +162,6 @@ function PokemonGame({ pokemonList }) {
       //  router.post('/game/save', async (req, res) => {
       //  const { pokemon_1_name, pokemon_1_id, pokemon_2_name, pokemon_2_id, game_winner_name, game_winner_id, game_rounds } = req.body;
 
-      console.log({ pokemonAIdentity: pokemonAIdentity });
-      console.log({ pokemonBIdentity: pokemonBIdentity });
-      let gameWinnerName = "draw";
-      if (winner === "A") {
-        gameWinnerName = pokemonAIdentity.name.english;
-      } else if (winner === "B") {
-        gameWinnerName = pokemonBIdentity.name.english;
-      }
-
-
       /**
       const leaderboardEntry = {
         method: "post",
@@ -193,6 +186,17 @@ function PokemonGame({ pokemonList }) {
       axios(leaderboardEntry);
       */
 
+      
+      console.log({ pokemonAIdentity: pokemonAIdentity });
+      console.log({ pokemonBIdentity: pokemonBIdentity });
+      let gameWinnerName = "draw";
+      if (winner === "A") {
+        gameWinnerName = pokemonAIdentity.name.english;
+      } else if (winner === "B") {
+        gameWinnerName = pokemonBIdentity.name.english;
+      }
+      console.log({gameLogState : JSON.stringify(gameLogState)})
+
       console.log("Sending axios leaderboard entry request.");
       axios.post('http://localhost:3001/game/save', {
         pokemon_1_name: pokemonAIdentity.name.english,
@@ -201,7 +205,8 @@ function PokemonGame({ pokemonList }) {
         pokemon_2_id: pokemonBIdentity.id,
         game_winner_name: gameWinnerName,
         game_winner_id: gameWinnerId,
-        game_rounds: currentTurn
+        game_rounds: currentTurn,
+        game_log: gameLogState
       })
       .then((response) => {
         console.log(response);
@@ -227,16 +232,19 @@ function PokemonGame({ pokemonList }) {
     if (pokemonACurrentHP !== 0) {
       console.log(`## ${pokemonAIdentity.name.english} has won the fight!`);
       gameLog.push(`${pokemonAIdentity.name.english} has won the fight!`);
+      setGameLogState([...gameLogState,`${pokemonAIdentity.name.english} has won the fight!`])
       setGameWinnerId(pokemonAIdentity.id);
       setWinner("A");
     } else if (pokemonBCurrentHP !== 0) {
       console.log(`## ${pokemonBIdentity.name.english} has won the fight!`);
       gameLog.push(`${pokemonBIdentity.name.english} has won the fight!`);
+      setGameLogState([...gameLogState,`${pokemonBIdentity.name.english} has won the fight!`])
       setGameWinnerId(pokemonBIdentity.id);
       setWinner("B");
     } else {
       console.log("## It's a draw!");
       gameLog.push("It's a draw!");
+      setGameLogState([...gameLogState,"It's a draw!"])
       setGameWinnerId(-1);
       setWinner("X");
     }
@@ -303,6 +311,7 @@ function PokemonGame({ pokemonList }) {
       }
       console.log(speedPhaseText);
       gameLog.push(speedPhaseText);
+      setGameLogState([...gameLogState,speedPhaseText]);
 
       //attack phase one
       //TODO:implement attack pahse ONE (AB or BA based on order)
@@ -372,6 +381,7 @@ function PokemonGame({ pokemonList }) {
       }
       console.log(attackPhaseOneText);
       gameLog.push(attackPhaseOneText);
+      setGameLogState([...gameLogState,attackPhaseOneText]);
       //attack phase two
       //TODO:implement attack phase TWO (BA or AB based on order)
       let damagePhase2 = 0;
@@ -440,6 +450,7 @@ function PokemonGame({ pokemonList }) {
       }
       console.log(attackPhaseTwoText);
       gameLog.push(attackPhaseTwoText);
+      setGameLogState([...gameLogState,attackPhaseTwoText]);
       //game state check phase
     } else {
       console.log("No active game. Cannot calculate next turn.");
