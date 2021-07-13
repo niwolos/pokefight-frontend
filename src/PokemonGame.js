@@ -13,17 +13,19 @@ class PokemonGame extends React.Component {
           <div className="totalContainer">
             <div className="firstColumn">
                 <button className="saveButton">Save Match</button><br/>
-                <label className="winnerLabel">Winner</label>
+                <label className="winnerLabel">WinnerPokemon</label>
                 <div className="leftFirstSubContainer">
                     <div className="leftSecondSubContainer">
                         <textarea className="idArea"></textarea>
-                        <textarea></textarea>
+                        <textarea className="inArea"></textarea>
                     </div>
                     <div className="leftThirdSubContainer">
-                        <textarea clasName="resultsOne"></textarea>
-                        <textarea clasName="resultsOne"></textarea>
-                        <textarea clasName="resultsOne"></textarea>
-                        <textarea></textarea>
+                        <textarea className="resultsOne"></textarea>
+                        <textarea className="resultsOne"></textarea>
+                        <textarea className="resultsOne"></textarea>
+                        <textarea className="resultsTwo"></textarea>
+                    </div>
+                    <div className="leftFighter">
                         <img src="https://www.pngkit.com/png/detail/10-103745_report-abuse-cutest-pokemon-picture-ever.png" width="200px"></img>
                     </div>
                 </div>
@@ -37,19 +39,21 @@ class PokemonGame extends React.Component {
                </div>
             </div>
             <div className="thirdColumn">
-            <button className="saveButton">Save Match</button><br/>
-                <label className="winnerLabel">Winner</label>
-                <div className="leftFirstSubContainer">
-                    <div className="leftSecondSubContainer">
+            <button className="randButton">Randomize</button><br/>
+                <label className="winnerLabel">WinnerPokemon</label>
+                <div className="rightFirstSubContainer">
+                    <div className="rightSecondSubContainer">
+                        <textarea className="inArea"></textarea>
                         <textarea className="idArea"></textarea>
-                        <textarea></textarea>
                     </div>
-                    <div className="leftThirdSubContainer">
-                        <textarea clasName="resultsOne"></textarea>
-                        <textarea clasName="resultsOne"></textarea>
-                        <textarea clasName="resultsOne"></textarea>
-                        <textarea></textarea>
-                        <img src="https://www.pngkit.com/png/detail/10-103745_report-abuse-cutest-pokemon-picture-ever.png" width="200px"></img>
+                    <div className="rightThirdSubContainer">
+                        <textarea className="resultsOneRight"></textarea>
+                        <textarea className="resultsOneRight"></textarea>
+                        <textarea className="resultsOneRight"></textarea>
+                        <textarea className="resultsTwoRight"></textarea>
+                    </div>
+                    <div className="rightFighter">
+                    <img src="https://www.pngkit.com/png/detail/10-103745_report-abuse-cutest-pokemon-picture-ever.png" width="200px"></img>
                     </div>
                 </div>
             </div>
