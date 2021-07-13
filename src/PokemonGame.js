@@ -474,12 +474,14 @@ function PokemonGame({ pokemonList }) {
                     ? pokemonACurrentHP
                     : "-"
                 }
+                rows= "1"
               ></textarea>
               <label>HP_max</label>
               <textarea
                 disabled="true"
                 className="hp_1_max gameplayUIValue"
                 value={pokemonAStats ? pokemonAStats.HP : "-"}
+                rows= "1"
               ></textarea>
               <label>ATK</label>
               <textarea
@@ -490,6 +492,7 @@ function PokemonGame({ pokemonList }) {
                     ? pokemonAStats.ATK + "|" + pokemonAStats.ATK_SP
                     : "-|-"
                 }
+                rows= "1"
               ></textarea>
               <label>DEF</label>
               <textarea
@@ -500,12 +503,14 @@ function PokemonGame({ pokemonList }) {
                     ? pokemonAStats.DEF + "|" + pokemonAStats.DEF_SP
                     : "-|-"
                 }
+                rows= "1"
               ></textarea>
               <label>SPD</label>
               <textarea
                 disabled="true"
                 className="speed_1 gameplayUIValue"
                 value={pokemonAStats ? pokemonAStats.SPD : "-"}
+                rows= "1"
               ></textarea>
               <img
                 src="https://www.pngkit.com/png/detail/10-103745_report-abuse-cutest-pokemon-picture-ever.png"
@@ -531,7 +536,7 @@ function PokemonGame({ pokemonList }) {
             <label>Turn: </label>
             <textarea
               disabled="true"
-              className="turnLabel gameplayUIValue"
+              className="turnLabel turnNumberValue"
               value={currentTurn ? currentTurn : "0"}
             ></textarea>
           </div>
@@ -554,6 +559,7 @@ function PokemonGame({ pokemonList }) {
                 ref={inputId2}
                 className="id2 identityInput"
                 placeholder="id.."
+                rows= "1"
               ></textarea>
               <label text="name" />
               <textarea
@@ -567,6 +573,7 @@ function PokemonGame({ pokemonList }) {
                       : ""
                     : ""
                 }
+                rows= "1"
               ></textarea>
             </div>
             <div className="rightThirdSubContainer">
@@ -582,12 +589,14 @@ function PokemonGame({ pokemonList }) {
                     ? pokemonBCurrentHP
                     : "-"
                 }
+                rows= "1"
               ></textarea>
               <label>HP_max</label>
               <textarea
                 disabled="true"
                 className="hp_2_max gameplayUIValue"
                 value={pokemonBStats ? pokemonBStats.HP : "-"}
+                rows= "1"
               ></textarea>
               <label>ATK</label>
               <textarea
@@ -598,6 +607,7 @@ function PokemonGame({ pokemonList }) {
                     ? pokemonBStats.ATK + "|" + pokemonBStats.ATK_SP
                     : "-|-"
                 }
+                rows= "1"
               ></textarea>
               <label>DEF</label>
               <textarea
@@ -608,12 +618,14 @@ function PokemonGame({ pokemonList }) {
                     ? pokemonBStats.DEF + "|" + pokemonBStats.DEF_SP
                     : "-|-"
                 }
+                rows= "1"
               ></textarea>
               <label>SPD</label>
               <textarea
                 disabled="true"
                 className="speed_2 gameplayUIValue"
                 value={pokemonBStats ? pokemonBStats.SPD : "-"}
+                rows= "1"
               ></textarea>
               <img
                 src="https://www.pngkit.com/png/detail/10-103745_report-abuse-cutest-pokemon-picture-ever.png"

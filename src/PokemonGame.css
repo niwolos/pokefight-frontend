@@ -1,242 +1,241 @@
-.totalContainer{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    background-color: rgb(205, 240, 234);
-    
+.totalContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  background-color: rgb(205, 240, 234);
 }
 
 /* the left column*/
 
-.firstColumn{
-    background-color: grey;
-    margin-top: 100px;
-    border-radius: 5%;
-    width: 300px;
-    height: 100%;
-    padding: 10px;    
+.firstColumn {
+  background-color: grey;
+  margin-top: 100px;
+  border-radius: 5%;
+  width: 300px;
+  height: 100%;
+  padding: 10px;
 }
 
-.saveButton{
-    margin: 10px 10px 50px 10px;
-    border-radius: 15%;
-    height: 35px;
-    background-color: rgb(41, 23, 199);
-    color:#f8f7f5;   
-    font-size:10pt;  
-    font-family:arial, "lucida console", sans-serif;  
+.saveButton {
+  margin: 10px 10px 50px 10px;
+  border-radius: 15%;
+  height: 35px;
+  background-color: rgb(41, 23, 199);
+  color: #f8f7f5;
+  font-size: 10pt;
+  font-family: arial, "lucida console", sans-serif;
 }
 
-.winnerLabel{
-    background-color: burlywood;
-    margin-left: 70px;
-    padding: 20px;
-    border-radius: 10%;
+.winnerLabel {
+  background-color: burlywood;
+  margin-left: 70px;
+  padding: 20px;
+  border-radius: 10%;
 }
 
-.leftFirstSubContainer{
-    flex-flow: column;
-    margin-top: 50px;
+.leftFirstSubContainer {
+  flex-flow: column;
+  margin-top: 50px;
 }
 
-.leftSecondSubContainer{
-    display: flex;
-    justify-content: flex-start;
-
+.leftSecondSubContainer {
+  display: flex;
+  justify-content: flex-start;
 }
 
-.idArea{
-    border-radius: 10%;
-    resize: none;
-    width: 30px;
+.idArea {
+  border-radius: 10%;
+  resize: none;
+  width: 30px;
 }
 
-.inArea{
-    border-radius: 10%;
-    resize: none;
-    flex-grow: 3;
-    resize: none;
-    margin: 0px 25px 0px 20px; 
+.inArea {
+  border-radius: 10%;
+  resize: none;
+  flex-grow: 3;
+  resize: none;
+  margin: 0px 25px 0px 20px;
 }
 
-
-.leftThirdSubContainer{
-    display: flex;
-    flex-flow: column;   
+.leftThirdSubContainer {
+  display: flex;
+  flex-flow: column;
 }
 
-.resultsOne{
-    border-radius: 10%;
-    resize: none;
-    width: 100px; 
-    margin: 20px 20px 20px 170px;   
+.resultsOne {
+  border-radius: 10%;
+  resize: none;
+  width: 100px;
+  margin: 20px 20px 20px 170px;
 }
 
-.resultsTwo{
-    border-radius: 10%;
-    resize: none;
-    width: 50px; 
-    margin: 20px 20px 20px 220px;   
+.resultsTwo {
+  border-radius: 10%;
+  resize: none;
+  width: 50px;
+  margin: 20px 20px 20px 220px;
 }
 
-.leftFighter{
-    display: flex;
-    justify-content: center;
+.leftFighter {
+  display: flex;
+  justify-content: center;
 }
 
-.rightFirstSubContainer{
-    display: flex;
-    justify-content: center;
-    flex-flow: column;
+.rightFirstSubContainer {
+  display: flex;
+  justify-content: center;
+  flex-flow: column;
 }
 
-.rightSecondSubContainer{
-    display: flex;
-    justify-content: flex-end;
+.rightSecondSubContainer {
+  display: flex;
+  justify-content: flex-end;
 }
 
-.rightThirdSubContainer{
-    display: flex;
-    flex-flow: column;
-    justify-content: flex-end;
+.rightThirdSubContainer {
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-end;
 }
 
-.firstColumn{
-    background-color: red;
-    
+.firstColumn {
+  background-color: red;
 }
 
-
-.secondColumn{
-    background-color: grey;
-    margin-top: 100px;
-    border-radius: 5%;
-    width: 300px;
-    height: 100%;
-    padding: 10px;
+.secondColumn {
+  background-color: grey;
+  margin-top: 100px;
+  border-radius: 5%;
+  width: 300px;
+  height: 100%;
+  padding: 10px;
 }
 
-/*this is the third column*/ 
-.thirdColumn{
-    background-color: grey;
-    margin-top: 100px;
-    border-radius: 5%;
-    width: 300px;
-    height: 100%;
-    padding: 10px;
+/*this is the third column*/
+.thirdColumn {
+  background-color: grey;
+  margin-top: 100px;
+  border-radius: 5%;
+  width: 300px;
+  height: 100%;
+  padding: 10px;
 }
 
-.randButton{
-    margin: 10px 10px 50px 200px;
-    border-radius: 15%;
-    height: 35px;
-    background-color: rgb(41, 23, 199);
-    color:#f8f7f5;   
-    font-size:10pt;  
-    font-family:arial, "lucida console", sans-serif;  
+.randButton {
+  margin: 10px 10px 50px 200px;
+  border-radius: 15%;
+  height: 35px;
+  background-color: rgb(41, 23, 199);
+  color: #f8f7f5;
+  font-size: 10pt;
+  font-family: arial, "lucida console", sans-serif;
 }
 
-.saveButton{
-    margin-top: 20px;
-    margin-bottom: 20px;
+.saveButton {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
-.randomButton{
-    margin: 10px 10px 50px 200px;
-    border-radius: 15%;
-    height: 35px;
-    background-color: rgb(41, 23, 199);
-    color:#f8f7f5;   
-    font-size:10pt;  
-    font-family:arial, "lucida console", sans-serif;  
+.randomButton {
+  margin: 10px 10px 50px 200px;
+  border-radius: 15%;
+  height: 35px;
+  background-color: rgb(41, 23, 199);
+  color: #f8f7f5;
+  font-size: 10pt;
+  font-family: arial, "lucida console", sans-serif;
 }
 
-.winnerLabel{
-    background-color: burlywood;
-    margin-left: 70px;
-    padding: 20px;
-    border-radius: 10%;
+.winnerLabel {
+  background-color: burlywood;
+  margin-left: 70px;
+  padding: 20px;
+  border-radius: 10%;
 }
 
-.rightFirstSubContainer{
-    flex-flow: column;
-    margin-top: 50px;
+.rightFirstSubContainer {
+  flex-flow: column;
+  margin-top: 50px;
 }
 
-.rightSecondSubContainer{
-    display: flex;
-    justify-content: flex-start;
-
+.rightSecondSubContainer {
+  display: flex;
+  justify-content: flex-start;
 }
 
-.idArea{
-    border-radius: 10%;
-    resize: none;
-    width: 30px;
+.idArea {
+  border-radius: 10%;
+  resize: none;
+  width: 30px;
 }
 
-.inArea{
-    border-radius: 10%;
-    resize: none;
-    flex-grow: 3;
-    resize: none;
-    margin: 0px 25px 0px 20px; 
+.inArea {
+  border-radius: 10%;
+  resize: none;
+  flex-grow: 3;
+  resize: none;
+  margin: 0px 25px 0px 20px;
 }
 
-
-.leftThirdSubContainer{
-    display: flex;
-    flex-flow: column;   
+.leftThirdSubContainer {
+  display: flex;
+  flex-flow: column;
 }
 
-.resultsOneRight{
-    border-radius: 10%;
-    resize: none;
-    width: 100px; 
-    margin: 20px 170px 20px 20px;   
+.resultsOneRight {
+  border-radius: 10%;
+  resize: none;
+  width: 100px;
+  margin: 20px 170px 20px 20px;
 }
 
-.resultsTwoRight{
-    border-radius: 10%;
-    resize: none;
-    width: 50px; 
-    margin: 20px 20px 20px 20px;   
+.resultsTwoRight {
+  border-radius: 10%;
+  resize: none;
+  width: 50px;
+  margin: 20px 20px 20px 20px;
 }
 
-.rightFighter{
-    display: flex;
-    justify-content: center;
+.rightFighter {
+  display: flex;
+  justify-content: center;
 }
 
-img{
-    margin: 100px 0px 50px 0px;
-
+img {
+  margin: 100px 0px 50px 0px;
 }
 
-
-.resultsOne{
-    width: 10%;
-    
+.resultsOne {
+  width: 10%;
 }
 
-textarea { resize: none; }
+textarea {
+  resize: none;
+}
 
 textarea:disabled {
-    background-color:lightcyan;
+  background-color: lightcyan;
 }
 
 .identityInput {
-    disabled: false
+  disabled: false;
 }
 
 .gameplayUIValue {
-    disabled: true
+  disabled: true;
+  font-family: inherit;
+  font-size: 2em;
 }
 
-.turnLabel:disabled{
-    background-color: lightcyan;
-    width:auto;
-    max-width: 20px;
-    max-height: 15px;
+.turnNumberValue {
+  disabled: true;
+  font-family: inherit;
+  font-size: 1.5em;
 }
 
+.turnLabel:disabled {
+  background-color: lightcyan;
+  width: auto;
+  max-width: 35px;
+  max-height: 28px;
+}
