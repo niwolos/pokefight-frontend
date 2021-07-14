@@ -125,6 +125,8 @@ function PokemonGame({ pokemonList }) {
         DEF_SP: pokemonAObj.base["Sp. Defense"],
         SPD: pokemonAObj.base.Speed,
       };
+      initPokemonAStats(pokemonAStatsFormatted);
+
       let pokemonBStatsFormatted;
       pokemonBStatsFormatted = {
         HP: pokemonBObj.base.HP,
@@ -134,8 +136,8 @@ function PokemonGame({ pokemonList }) {
         DEF_SP: pokemonBObj.base["Sp. Defense"],
         SPD: pokemonBObj.base.Speed,
       };
-      initPokemonBStats(pokemonAStatsFormatted);
-      initPokemonAStats(pokemonBStatsFormatted);
+      initPokemonBStats(pokemonBStatsFormatted);
+
     } else {
       console.log({ pokemon_A: pokemonAObj }, { pokemon_B: pokemonBObj });
       console.error(
@@ -336,7 +338,7 @@ function PokemonGame({ pokemonList }) {
           defRoll = Math.floor(Math.random() * pokemonBStats.DEF);
         }
         //determine damage
-        damagePhase1 = defRoll - atkRoll < 0 ? (defRoll - atkRoll) * 0.5 : 0;
+        damagePhase1 = defRoll - atkRoll < 0 ? (defRoll - atkRoll) : 0;
         //update health if damage >=0
         updatePokemonBHealth(damagePhase1);
         const specialString = spAttack ? " (SP)" : "";
@@ -367,7 +369,7 @@ function PokemonGame({ pokemonList }) {
           defRoll = Math.floor(Math.random() * pokemonBStats.DEF);
         }
         //determine damage
-        damagePhase1 = defRoll - atkRoll < 0 ? (defRoll - atkRoll) * 0.5 : 0;
+        damagePhase1 = defRoll - atkRoll < 0 ? (defRoll - atkRoll) : 0;
         //update health if damage >=0
         updatePokemonAHealth(damagePhase1);
         const specialString = spAttack ? " (SP)" : "";
@@ -405,7 +407,7 @@ function PokemonGame({ pokemonList }) {
           defRoll = Math.floor(Math.random() * pokemonBStats.DEF * 1.3);
         }
         //determine damage
-        damagePhase2 = defRoll - atkRoll < 0 ? (defRoll - atkRoll) * 0.5 : 0;
+        damagePhase2 = defRoll - atkRoll < 0 ? (defRoll - atkRoll) : 0;
         //update health if damage >=0
         updatePokemonAHealth(damagePhase2);
         const specialString = spAttack ? " (SP)" : "";
@@ -436,7 +438,7 @@ function PokemonGame({ pokemonList }) {
           defRoll = Math.floor(Math.random() * pokemonBStats.DEF * 1.3);
         }
         //determine damage
-        damagePhase2 = defRoll - atkRoll < 0 ? (defRoll - atkRoll) * 0.5 : 0;
+        damagePhase2 = defRoll - atkRoll < 0 ? (defRoll - atkRoll) : 0;
         //update health if damage >=0
         updatePokemonBHealth(damagePhase2);
         const specialString = spAttack ? " (SP)" : "";
@@ -520,13 +522,15 @@ function PokemonGame({ pokemonList }) {
             <label className="winnerLabel">DRAW!</label>
           )}
           <div className="leftFirstSubContainer">
-            <div className="leftSecondSubContainer">
-              <label text="id" />
+          <div className="extracontainer">
+          <label text="id" />
               <textarea
                 ref={inputId1}
                 className="id1 identityInput"
                 placeholder="id.."
               ></textarea>
+            </div>
+            <div className="leftSecondSubContainer">
               <label text="name" />
               <textarea
                 ref={inputName1}
@@ -632,15 +636,16 @@ function PokemonGame({ pokemonList }) {
             <label className="winnerLabel">DRAW!</label>
           )}
           <div className="rightFirstSubContainer">
-            <div className="rightSecondSubContainer">
-              <label text="id" />
-              <textarea
+            <div>
+            <textarea
                 ref={inputId2}
                 className="id2 identityInput"
                 placeholder="id.."
                 rows="1"
               ></textarea>
-              <label text="name" />
+            </div>
+            <div className="rightSecondSubContainer">
+              <br />
               <textarea
                 ref={inputName2}
                 className="name2 identityInput"

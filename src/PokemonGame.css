@@ -41,6 +41,7 @@
 .leftSecondSubContainer {
   display: flex;
   justify-content: flex-start;
+  width: max-content;
 }
 
 .idArea {
@@ -82,14 +83,14 @@
 }
 
 .rightFirstSubContainer {
-  display: flex;
-  justify-content: center;
   flex-flow: column;
+  margin-top: 50px;
 }
 
 .rightSecondSubContainer {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
+  width: max-content;
 }
 
 .rightThirdSubContainer {
@@ -219,6 +220,7 @@ textarea:disabled {
 
 .identityInput {
   disabled: false;
+  width: fit-content;
 }
 
 .gameplayUIValue {
