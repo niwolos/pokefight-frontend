@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# PokeFight frontend
 
 The FrontEnd for the amazing PokeFight game!
 
