@@ -513,20 +513,23 @@ function PokemonGame({ pokemonList }) {
 
    
 
-  function updateProgressBarOne(progressBarA, progressBarB,  valueA, valueB){
+  function updateProgressBarOne(progressBarA, progressBarB,  valueA, valueB, valueAMax, valueBMax){
         
         //value = pokemonACurrentHP * 100/value;
+        const ratioOne = valueA/valueAMax*100;
+
+        let ratioTwo = valueB/valueBMax*100;
 
 
-        valueA = Math.round(valueA);
-        valueB = Math.round(valueB);
+        valueA = Math.round(ratioOne);
+        valueB = Math.round(ratioTwo);
         progressBarA.querySelector(".progress__fillA").style.width = `${valueA}%`;
         progressBarA.querySelector(".progress__textA").textContent = `${valueA}%`;
         progressBarB.querySelector(".progress__fillB").style.width = `${valueB}%`;
         progressBarB.querySelector(".progress__textB").textContent = `${valueB}%`;
   }
 
-  updateProgressBarOne(pBarA, pBarB, pokemonACurrentHP, pokemonBCurrentHP);
+  updateProgressBarOne(pBarA, pBarB, pokemonACurrentHP, pokemonBCurrentHP, pokemonAStats.HP, pokemonBStats.HP);
   
 
 
