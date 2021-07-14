@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import "./PokemonGame.css";
 import App from "./App.js";
+import axios from "axios";
 
 function PokemonGame({ pokemonList }) {
   const inputId1 = useRef(-1);
@@ -21,10 +22,16 @@ function PokemonGame({ pokemonList }) {
   const [gameActive, setGameActive] = useState(false);
   const [winner, setWinner] = useState("");
   const [currentTurn, setCurrentTurn] = useState(0);
+  const [gameWinnerId, setGameWinnerId] = useState(-1);
+  const [gameLogState, setGameLogState] = useState([]);
   let gameLog = [];
-  let gameWinnerId = -1;
 
-  useEffect(() => {}, [pokemonACurrentHP, pokemonBCurrentHP]);
+  useEffect(() => {
+    if (checkIfGameOver()) {
+      //game winner check phase
+      determineWinnerAndFinish();
+    }
+  }, [pokemonACurrentHP, pokemonBCurrentHP]);
 
   const randomizeIds = () => {
     console.log("Randomizing pokemon IDs.");
@@ -47,6 +54,8 @@ function PokemonGame({ pokemonList }) {
     setGameActive(true);
     setWinner("");
     setCurrentTurn(0);
+    setGameLogState([]);
+    gameLog=[];
 
     //2.
     console.log({ id_1: inputId1.current.value });
@@ -94,17 +103,17 @@ function PokemonGame({ pokemonList }) {
       console.log("Two valid pokemon IDs or names entered. Initializing game.");
       //identities
       //identity A
-      updatePokemonAIdentity("id", pokemonAObj.id);
-      updatePokemonAIdentity("name", pokemonAObj.name);
+      setPokemonAIdentity({ id: pokemonAObj.id, name: pokemonAObj.name });
+      //updatePokemonAIdentity("id", pokemonAObj.id);
+      //updatePokemonAIdentity("name", pokemonAObj.name);
       inputName1.current.value = pokemonAObj.name.english;
       //identity B
-      updatePokemonBIdentity("id", pokemonBObj.id);
-      updatePokemonBIdentity("name", pokemonBObj.name);
+      setPokemonBIdentity({ id: pokemonBObj.id, name: pokemonBObj.name });
+      //updatePokemonBIdentity("id", pokemonBObj.id);
+      //updatePokemonBIdentity("name", pokemonBObj.name);
       inputName2.current.value = pokemonBObj.name.english;
 
       //stats
-      setPokemonAStats({});
-
       let pokemonAStatsFormatted;
       pokemonAStatsFormatted = {
         HP: pokemonAObj.base.HP,
@@ -114,6 +123,8 @@ function PokemonGame({ pokemonList }) {
         DEF_SP: pokemonAObj.base["Sp. Defense"],
         SPD: pokemonAObj.base.Speed,
       };
+      initPokemonAStats(pokemonAStatsFormatted);
+
       let pokemonBStatsFormatted;
       pokemonBStatsFormatted = {
         HP: pokemonBObj.base.HP,
@@ -123,8 +134,8 @@ function PokemonGame({ pokemonList }) {
         DEF_SP: pokemonBObj.base["Sp. Defense"],
         SPD: pokemonBObj.base.Speed,
       };
-      initPokemonBStats(pokemonAStatsFormatted);
-      initPokemonAStats(pokemonBStatsFormatted);
+      initPokemonBStats(pokemonBStatsFormatted);
+
     } else {
       console.log({ pokemon_A: pokemonAObj }, { pokemon_B: pokemonBObj });
       console.error(
@@ -135,15 +146,78 @@ function PokemonGame({ pokemonList }) {
   };
 
   const saveGame = () => {
-    //TODO:implement saving feature towards API game/save with data from end of game like defined in backend .txt file
-    //pokemon_1_name String (english)
-    //pokemon_1_id Number
-    //pokemon_2_name String (english)
-    //pokemon_2_id Number
-    //game_winner_name String (if draw:"DRAW")
-    //game_winner_id Number (if draw:-1)
-    //game_rounds Number
-    //game_log Array (of strings)
+    if (!gameActive && winner !== "") {
+      console.log(
+        "Called save game - formatting information for leaderboard entry to API."
+      );
+      //TODO:implement saving feature towards API game/save with data from end of game like defined in backend .txt file
+      //pokemon_1_name String (english)
+      //pokemon_1_id Number
+      //pokemon_2_name String (english)
+      //pokemon_2_id Number
+      //game_winner_name String (if draw:"DRAW")
+      //game_winner_id Number (if draw:-1)
+      //game_rounds Number
+      //game_log Array (of strings)
+      //  router.post('/game/save', async (req, res) => {
+      //  const { pokemon_1_name, pokemon_1_id, pokemon_2_name, pokemon_2_id, game_winner_name, game_winner_id, game_rounds } = req.body;
+
+      /**
+      const leaderboardEntry = {
+        method: "post",
+        url: "http://localhost:3001/game/save",
+        body: {
+          pokemon_1_name: `${pokemonAIdentity.name.english}`,
+          pokemon_1_id: `${pokemonAIdentity.id}`,
+          pokemon_2_name: `${pokemonBIdentity.name.english}`,
+          pokemon_2_id: `${pokemonBIdentity.id}`,
+          game_winner_name: `${gameWinnerName}`,
+          game_winner_id: `${gameWinnerId}`,
+          game_rounds: `${currentTurn}`,
+        },
+        // transformRequest: [
+        //  (body, headers) => {
+        // transform the data
+        //    return body;
+        //  },
+        //],
+      };
+      console.log(leaderboardEntry);
+      axios(leaderboardEntry);
+      */
+
+      
+      console.log({ pokemonAIdentity: pokemonAIdentity });
+      console.log({ pokemonBIdentity: pokemonBIdentity });
+      let gameWinnerName = "draw";
+      if (winner === "A") {
+        gameWinnerName = pokemonAIdentity.name.english;
+      } else if (winner === "B") {
+        gameWinnerName = pokemonBIdentity.name.english;
+      }
+      console.log({gameLogState : JSON.stringify(gameLogState)})
+
+      console.log("Sending axios leaderboard entry request.");
+      axios.post('http://localhost:3001/game/save', {
+        pokemon_1_name: pokemonAIdentity.name.english,
+        pokemon_1_id: pokemonAIdentity.id,
+        pokemon_2_name: pokemonBIdentity.name.english,
+        pokemon_2_id: pokemonBIdentity.id,
+        game_winner_name: gameWinnerName,
+        game_winner_id: gameWinnerId,
+        game_rounds: currentTurn,
+        game_log: gameLogState
+      })
+      .then((response) => {
+        console.log(response);
+      }, (error) => {
+        console.log(error);
+      });
+    } else {
+      console.log(
+        "Unable to save game data. Make sure you only save when a completed game has a winner (or draw)"
+      );
+    }
   };
 
   const checkIfGameOver = () => {
@@ -155,22 +229,23 @@ function PokemonGame({ pokemonList }) {
   };
 
   const determineWinnerAndFinish = () => {
-    let winnerId = -1;
-    let winnerSide = "X";
     if (pokemonACurrentHP !== 0) {
       console.log(`## ${pokemonAIdentity.name.english} has won the fight!`);
       gameLog.push(`${pokemonAIdentity.name.english} has won the fight!`);
-      gameWinnerId = pokemonAIdentity.id;
+      setGameLogState([...gameLogState,`${pokemonAIdentity.name.english} has won the fight!`])
+      setGameWinnerId(pokemonAIdentity.id);
       setWinner("A");
     } else if (pokemonBCurrentHP !== 0) {
       console.log(`## ${pokemonBIdentity.name.english} has won the fight!`);
       gameLog.push(`${pokemonBIdentity.name.english} has won the fight!`);
-      gameWinnerId = pokemonBIdentity.id;
+      setGameLogState([...gameLogState,`${pokemonBIdentity.name.english} has won the fight!`])
+      setGameWinnerId(pokemonBIdentity.id);
       setWinner("B");
     } else {
       console.log("## It's a draw!");
       gameLog.push("It's a draw!");
-      gameWinnerId = -1;
+      setGameLogState([...gameLogState,"It's a draw!"])
+      setGameWinnerId(-1);
       setWinner("X");
     }
     setGameActive(false);
@@ -236,6 +311,7 @@ function PokemonGame({ pokemonList }) {
       }
       console.log(speedPhaseText);
       gameLog.push(speedPhaseText);
+      setGameLogState([...gameLogState,speedPhaseText]);
 
       //attack phase one
       //TODO:implement attack pahse ONE (AB or BA based on order)
@@ -260,17 +336,17 @@ function PokemonGame({ pokemonList }) {
           defRoll = Math.floor(Math.random() * pokemonBStats.DEF);
         }
         //determine damage
-        damagePhase1 = defRoll - atkRoll < 0 ? (defRoll - atkRoll) * 0.5 : 0;
+        damagePhase1 = defRoll - atkRoll < 0 ? (defRoll - atkRoll) : 0;
         //update health if damage >=0
         updatePokemonBHealth(damagePhase1);
-        const specialString = spAttack?" (SP)":"";
+        const specialString = spAttack ? " (SP)" : "";
         attackPhaseOneText = `Pokemon ${JSON.stringify(
-            pokemonAIdentity.name.english
-          )}(${JSON.stringify(pokemonACurrentHP)}) dealt ${JSON.stringify(
-            Math.abs(damagePhase1)
-          )} damage (${atkRoll} vs ${defRoll}${specialString}) to ${JSON.stringify(
-            pokemonBIdentity.name.english
-          )}(${JSON.stringify(pokemonBCurrentHP)}) during Phase1 `;
+          pokemonAIdentity.name.english
+        )}(${JSON.stringify(pokemonACurrentHP)}) dealt ${JSON.stringify(
+          Math.abs(damagePhase1)
+        )} damage (${atkRoll} vs ${defRoll}${specialString}) to ${JSON.stringify(
+          pokemonBIdentity.name.english
+        )}(${JSON.stringify(pokemonBCurrentHP)}) during Phase1 `;
       } else {
         //B attacks A
         //roll normal or sp attack
@@ -291,20 +367,21 @@ function PokemonGame({ pokemonList }) {
           defRoll = Math.floor(Math.random() * pokemonBStats.DEF);
         }
         //determine damage
-        damagePhase1 = defRoll - atkRoll < 0 ? (defRoll - atkRoll) * 0.5 : 0;
+        damagePhase1 = defRoll - atkRoll < 0 ? (defRoll - atkRoll) : 0;
         //update health if damage >=0
         updatePokemonAHealth(damagePhase1);
-        const specialString = spAttack?" (SP)":"";
+        const specialString = spAttack ? " (SP)" : "";
         attackPhaseOneText = `Pokemon ${JSON.stringify(
           pokemonBIdentity.name.english
         )}(${JSON.stringify(pokemonBCurrentHP)}) dealt ${JSON.stringify(
-            Math.abs(damagePhase1)
+          Math.abs(damagePhase1)
         )} damage (${atkRoll} vs ${defRoll}${specialString}) to ${JSON.stringify(
           pokemonAIdentity.name.english
         )}(${JSON.stringify(pokemonACurrentHP)}) during Phase1 `;
       }
       console.log(attackPhaseOneText);
       gameLog.push(attackPhaseOneText);
+      setGameLogState([...gameLogState,attackPhaseOneText]);
       //attack phase two
       //TODO:implement attack phase TWO (BA or AB based on order)
       let damagePhase2 = 0;
@@ -328,14 +405,14 @@ function PokemonGame({ pokemonList }) {
           defRoll = Math.floor(Math.random() * pokemonBStats.DEF * 1.3);
         }
         //determine damage
-        damagePhase2 = defRoll - atkRoll < 0 ? (defRoll - atkRoll) * 0.5 : 0;
+        damagePhase2 = defRoll - atkRoll < 0 ? (defRoll - atkRoll) : 0;
         //update health if damage >=0
         updatePokemonAHealth(damagePhase2);
-        const specialString = spAttack?" (SP)":"";
+        const specialString = spAttack ? " (SP)" : "";
         attackPhaseTwoText = `Pokemon ${JSON.stringify(
           pokemonBIdentity.name.english
         )}(${JSON.stringify(pokemonBCurrentHP)}) dealt ${JSON.stringify(
-            Math.abs(damagePhase2)
+          Math.abs(damagePhase2)
         )} damage (${atkRoll} vs ${defRoll}${specialString}) to ${JSON.stringify(
           pokemonAIdentity.name.english
         )}(${JSON.stringify(pokemonACurrentHP)}) during Phase2 `;
@@ -359,25 +436,22 @@ function PokemonGame({ pokemonList }) {
           defRoll = Math.floor(Math.random() * pokemonBStats.DEF * 1.3);
         }
         //determine damage
-        damagePhase2 = defRoll - atkRoll < 0 ? (defRoll - atkRoll) * 0.5 : 0;
+        damagePhase2 = defRoll - atkRoll < 0 ? (defRoll - atkRoll) : 0;
         //update health if damage >=0
         updatePokemonBHealth(damagePhase2);
-        const specialString = spAttack?" (SP)":"";
+        const specialString = spAttack ? " (SP)" : "";
         attackPhaseTwoText = `Pokemon ${JSON.stringify(
-            pokemonAIdentity.name.english
-          )}(${JSON.stringify(pokemonACurrentHP)}) dealt ${JSON.stringify(
-            Math.abs(damagePhase1)
-          )} damage (${atkRoll} vs ${defRoll}${specialString}) to ${JSON.stringify(
-            pokemonBIdentity.name.english
-          )}(${JSON.stringify(pokemonBCurrentHP)}) during Phase2 `;
+          pokemonAIdentity.name.english
+        )}(${JSON.stringify(pokemonACurrentHP)}) dealt ${JSON.stringify(
+          Math.abs(damagePhase1)
+        )} damage (${atkRoll} vs ${defRoll}${specialString}) to ${JSON.stringify(
+          pokemonBIdentity.name.english
+        )}(${JSON.stringify(pokemonBCurrentHP)}) during Phase2 `;
       }
       console.log(attackPhaseTwoText);
       gameLog.push(attackPhaseTwoText);
+      setGameLogState([...gameLogState,attackPhaseTwoText]);
       //game state check phase
-      if (checkIfGameOver()) {
-        //game winner check phase
-        determineWinnerAndFinish();
-      }
     } else {
       console.log("No active game. Cannot calculate next turn.");
       return;
@@ -387,7 +461,9 @@ function PokemonGame({ pokemonList }) {
 
   const updatePokemonAIdentity = (key, value) => {
     console.log(
-      `Changing PokemonA's Identity param: ${key} value to: ${JSON.stringify(value)}`
+      `Changing PokemonA's Identity param: ${key} value to: ${JSON.stringify(
+        value
+      )}`
     );
     setPokemonAIdentity({
       ...pokemonAIdentity,
@@ -397,7 +473,9 @@ function PokemonGame({ pokemonList }) {
 
   const updatePokemonBIdentity = (key, value) => {
     console.log(
-      `Changing PokemonB's Identity param: ${key} value to: ${JSON.stringify(value)}`
+      `Changing PokemonB's Identity param: ${key} value to: ${JSON.stringify(
+        value
+      )}`
     );
     setPokemonBIdentity({
       ...pokemonBIdentity,
@@ -466,22 +544,26 @@ function PokemonGame({ pokemonList }) {
            <div className="progress__fillA"></div>
            <span className="progress__textA">0%</span>
           </div>
-          <button className="saveButton">Save Match</button>
+          <button className="saveButton" onClick={saveGame}>
+            Save Match
+          </button>
           <br />
-          {(!gameActive && winner === "A") && (
+          {!gameActive && winner === "A" && (
             <label className="winnerLabel">Winner!</label>
           )}
-          {(!gameActive && winner === "X") && (
+          {!gameActive && winner === "X" && (
             <label className="winnerLabel">DRAW!</label>
           )}
           <div className="leftFirstSubContainer">
-            <div className="leftSecondSubContainer">
-              <label text="id" />
+          <div className="extracontainer">
+          <label text="id" />
               <textarea
                 ref={inputId1}
                 className="id1 identityInput"
                 placeholder="id.."
               ></textarea>
+            </div>
+            <div className="leftSecondSubContainer">
               <label text="name" />
               <textarea
                 ref={inputName1}
@@ -509,14 +591,14 @@ function PokemonGame({ pokemonList }) {
                     ? pokemonACurrentHP
                     : "-"
                 }
-                rows= "1"
+                rows="1"
               ></textarea>
               <label>HP_max</label>
               <textarea
                 disabled="true"
                 className="hp_1_max gameplayUIValue"
                 value={pokemonAStats ? pokemonAStats.HP : "-"}
-                rows= "1"
+                rows="1"
               ></textarea>
               <label>ATK</label>
               <textarea
@@ -527,7 +609,7 @@ function PokemonGame({ pokemonList }) {
                     ? pokemonAStats.ATK + "|" + pokemonAStats.ATK_SP
                     : "-|-"
                 }
-                rows= "1"
+                rows="1"
               ></textarea>
               <label>DEF</label>
               <textarea
@@ -538,14 +620,14 @@ function PokemonGame({ pokemonList }) {
                     ? pokemonAStats.DEF + "|" + pokemonAStats.DEF_SP
                     : "-|-"
                 }
-                rows= "1"
+                rows="1"
               ></textarea>
               <label>SPD</label>
               <textarea
                 disabled="true"
                 className="speed_1 gameplayUIValue"
                 value={pokemonAStats ? pokemonAStats.SPD : "-"}
-                rows= "1"
+                rows="1"
               ></textarea>
               <img
                 src="https://www.pngkit.com/png/detail/10-103745_report-abuse-cutest-pokemon-picture-ever.png"
@@ -553,7 +635,6 @@ function PokemonGame({ pokemonList }) {
                 alt="Pokemon img not found"
               ></img>
             </div>
-
           </div>
         </div>
         <div className="secondColumn">
@@ -590,22 +671,23 @@ function PokemonGame({ pokemonList }) {
             Randomize
           </button>
           <br />
-          {(!gameActive && winner === "B") && (
+          {!gameActive && winner === "B" && (
             <label className="winnerLabel">Winner!</label>
           )}
-          {(!gameActive && winner === "X") && (
+          {!gameActive && winner === "X" && (
             <label className="winnerLabel">DRAW!</label>
           )}
           <div className="rightFirstSubContainer">
-            <div className="rightSecondSubContainer">
-              <label text="id" />
-              <textarea
+            <div>
+            <textarea
                 ref={inputId2}
                 className="id2 identityInput"
                 placeholder="id.."
-                rows= "1"
+                rows="1"
               ></textarea>
-              <label text="name" />
+            </div>
+            <div className="rightSecondSubContainer">
+              <br />
               <textarea
                 ref={inputName2}
                 className="name2 identityInput"
@@ -617,7 +699,7 @@ function PokemonGame({ pokemonList }) {
                       : ""
                     : ""
                 }
-                rows= "1"
+                rows="1"
               ></textarea>
             </div>
             <div className="rightThirdSubContainer">
@@ -633,14 +715,14 @@ function PokemonGame({ pokemonList }) {
                     ? pokemonBCurrentHP
                     : "-"
                 }
-                rows= "1"
+                rows="1"
               ></textarea>
               <label>HP_max</label>
               <textarea
                 disabled="true"
                 className="hp_2_max gameplayUIValue"
                 value={pokemonBStats ? pokemonBStats.HP : "-"}
-                rows= "1"
+                rows="1"
               ></textarea>
               <label>ATK</label>
               <textarea
@@ -651,7 +733,7 @@ function PokemonGame({ pokemonList }) {
                     ? pokemonBStats.ATK + "|" + pokemonBStats.ATK_SP
                     : "-|-"
                 }
-                rows= "1"
+                rows="1"
               ></textarea>
               <label>DEF</label>
               <textarea
@@ -662,21 +744,20 @@ function PokemonGame({ pokemonList }) {
                     ? pokemonBStats.DEF + "|" + pokemonBStats.DEF_SP
                     : "-|-"
                 }
-                rows= "1"
+                rows="1"
               ></textarea>
               <label>SPD</label>
               <textarea
                 disabled="true"
                 className="speed_2 gameplayUIValue"
                 value={pokemonBStats ? pokemonBStats.SPD : "-"}
-                rows= "1"
+                rows="1"
               ></textarea>
               <img
                 src="https://www.pngkit.com/png/detail/10-103745_report-abuse-cutest-pokemon-picture-ever.png"
                 width="200px"
                 alt="Pokemon img not found"
               ></img>
-
             </div>
           </div>
         </div>
