@@ -14,9 +14,9 @@ function PokemonGame({ pokemonList }) {
 
   const [pokemonAIdentity, setPokemonAIdentity] = useState({ id: 0 });
   const [pokemonBIdentity, setPokemonBIdentity] = useState({ id: 1 });
-  const [pokemonACurrentHP, setPokemonACurrentHP] = useState();
+  const [pokemonACurrentHP, setPokemonACurrentHP] = useState(100);
   const [pokemonAStats, setPokemonAStats] = useState();
-  const [pokemonBCurrentHP, setPokemonBCurrentHP] = useState();
+  const [pokemonBCurrentHP, setPokemonBCurrentHP] = useState(100);
   const [pokemonBStats, setPokemonBStats] = useState();
   const [gameActive, setGameActive] = useState(false);
   const [winner, setWinner] = useState("");
@@ -419,6 +419,7 @@ function PokemonGame({ pokemonList }) {
     setPokemonACurrentHP(
       pokemonACurrentHP + change < 0 ? 0 : pokemonACurrentHP + change
     );
+
   };
 
   const updatePokemonBHealth = (change) => {
@@ -427,10 +428,44 @@ function PokemonGame({ pokemonList }) {
     );
   };
 
+  useEffect(()=>{
+
+    const pBarA = document.querySelector(".progressA")
+    const pBarB = document.querySelector(".progressB")
+
+   
+
+  function updateProgressBarOne(progressBarA, progressBarB,  valueA, valueB){
+        
+        //value = pokemonACurrentHP * 100/value;
+
+
+        valueA = Math.round(valueA);
+        valueB = Math.round(valueB);
+        progressBarA.querySelector(".progress__fillA").style.width = `${valueA}%`;
+        progressBarA.querySelector(".progress__textA").textContent = `${valueA}%`;
+        progressBarB.querySelector(".progress__fillB").style.width = `${valueB}%`;
+        progressBarB.querySelector(".progress__textB").textContent = `${valueB}%`;
+  }
+
+  updateProgressBarOne(pBarA, pBarB, pokemonACurrentHP, pokemonBCurrentHP);
+  
+
+
+  }, [pokemonACurrentHP, pokemonBCurrentHP]);
+
+  
+
+
+
   return (
     <>
       <div className="totalContainer">
         <div className="firstColumn">
+          <div className="progressA">
+           <div className="progress__fillA"></div>
+           <span className="progress__textA">0%</span>
+          </div>
           <button className="saveButton">Save Match</button>
           <br />
           {(!gameActive && winner === "A") && (
@@ -532,16 +567,25 @@ function PokemonGame({ pokemonList }) {
             <button className="nextTurnButton" onClick={executeTurn}>
               Next turn
             </button>
-            <br />
-            <label>Turn: </label>
-            <textarea
-              disabled="true"
-              className="turnLabel turnNumberValue"
-              value={currentTurn ? currentTurn : "0"}
-            ></textarea>
+            <div className="turnlabelText">
+              <div>
+                <h2 className="turn">Turn:</h2>
+              </div>
+              <div>
+              <textarea
+                disabled="true"
+                className="turnLabel turnNumberValue"
+                value={currentTurn ? currentTurn : "0"}
+              ></textarea>
+              </div>
+            </div> 
           </div>
         </div>
         <div className="thirdColumn">
+          <div className="progressB">
+           <div className="progress__fillB"></div>
+           <span className="progress__textB">0%</span>
+          </div>
           <button className="randomButton" onClick={randomizeIds}>
             Randomize
           </button>

@@ -2,18 +2,44 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  background-color: rgb(205, 240, 234);
+  background-color: rgb(205, 233, 240);
 }
 
 /* the left column*/
 
 .firstColumn {
-  background-color: grey;
+  background-color:rgb(139, 139, 137);
   margin-top: 100px;
   border-radius: 5%;
   width: 300px;
   height: 100%;
   padding: 10px;
+}
+
+.progressA{
+  position: relative;
+  width: 300px;
+  height: 30px;
+  background: red;
+  margin-top: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+  /*transform: rotate(90deg);*/
+}
+
+.progress__fillA{
+  width: 10%;
+  height: 100%;
+  background:rgb(3, 102, 3); 
+   
+}
+
+.progress__textA{
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  transform: translateY(-50%);
+  color:white;
 }
 
 .saveButton {
@@ -28,7 +54,8 @@
 
 .winnerLabel {
   background-color: burlywood;
-  margin-left: 70px;
+  margin-left: 0px;
+  margin-top: 50px;
   padding: 20px;
   border-radius: 10%;
 }
@@ -98,28 +125,88 @@
   justify-content: flex-end;
 }
 
-.firstColumn {
-  background-color: red;
-}
+/*this is the middle column*/
 
 .secondColumn {
-  background-color: grey;
+  background-color: rgb(45, 168, 29);
   margin-top: 100px;
   border-radius: 5%;
   width: 300px;
   height: 100%;
   padding: 10px;
+  text-align: "center";
 }
+
+.pokeFightLogo{
+  color:rgb(205, 233, 240);
+  margin-left: 70px;
+}
+
+.startGameButton{
+  margin-left: 100px;
+  color:white;
+  font-weight: bold;
+  font-size: larger;
+  background-color: red;
+  width: 100px;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.nextTurnButton{
+  margin-left: 115px;
+  border-radius: 10x
+}
+
+.turnlabelText{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+ }
+
+ .turnLabel{
+  text-align: center;
+  border-radius: 10px;
+  color: white;
+  background-color: rgb(45, 168, 29)
+ }
 
 /*this is the third column*/
 .thirdColumn {
-  background-color: grey;
+  background-color: rgb(139, 139, 137);
   margin-top: 100px;
   border-radius: 5%;
   width: 300px;
   height: 100%;
   padding: 10px;
 }
+
+.progressB{
+  position: relative;
+  width: 300px;
+  height: 30px;
+  background: red;
+  margin-top: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progress__fillB{
+  width: 10%;
+  height: 100%;
+  background:rgb(3, 102, 3); 
+   
+}
+
+.progress__textB{
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  transform: translateY(-50%);
+  color:white;
+}
+
 
 .randButton {
   margin: 10px 10px 50px 200px;
@@ -148,7 +235,7 @@
 
 .winnerLabel {
   background-color: burlywood;
-  margin-left: 70px;
+  margin-left: 100px;
   padding: 20px;
   border-radius: 10%;
 }
@@ -202,7 +289,7 @@
 }
 
 img {
-  margin: 100px 0px 50px 0px;
+  margin: 100px 0px 50px 50px;
 }
 
 .resultsOne {
@@ -234,7 +321,8 @@ textarea:disabled {
 }
 
 .turnLabel:disabled {
-  background-color: lightcyan;
+  background-color: rgb(45, 168, 29);
+  border: rgb(45, 168, 29);
   width: auto;
   max-width: 35px;
   max-height: 28px;
